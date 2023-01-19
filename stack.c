@@ -1,0 +1,95 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{ struct node
+  { int data;
+    struct node *next;
+    };
+  struct node *start, *new_node;
+  start=NULL;
+  int top=0,ch,n,size,x,count=0,flag=0;
+  printf("Enter the size of stack :");
+  scanf("%d",&size);
+  do
+   { printf("\n\n1. Push.\n");
+     printf("2. Pop.\n");
+     printf("3. Display.\n");
+     printf("4. Search.\n");
+     printf("5. Exit.\n");
+     printf("Enter your choice :");
+     scanf("%d",&ch);
+     switch(ch)
+     { case 1:if(top==size)
+                 printf("\nStack is full..");
+              else
+              {  printf("\nEnter the element ro be inserted :");
+                 scanf("%d",&n);
+                 new_node=(struct node*)malloc(sizeof(struct node));
+                 new_node->data=n;
+                 new_node->next=NULL;
+                 if(start==NULL)
+                   start=new_node;
+                 else
+                 { new_node->next=start;
+                   start=new_node;
+                      }
+                 top++;
+                 printf("\nElement pushed sucessfully...");
+                 }
+       break;
+
+       case 2:if(start==NULL)
+                 printf("\nStack is empty..");
+              else
+              {  printf("\nPopped element= %d",start->data);
+                 new_node=start;
+                 start=start->next;
+                 free(new_node);
+                 top--;
+                 }
+       break;
+
+       case 3:if(start==NULL)
+                printf("\nStack is empty..");
+              else
+              {  new_node=start;
+                 while(new_node!=NULL)
+                 { printf("%d\n",new_node->data);
+                   new_node=new_node->next;
+                    }
+                }
+       break;
+
+       case 4:new_node=start;
+              count=0;
+              if(start==NULL)
+                printf("\nStack is empty..");
+              else
+              {  printf("\nEnter the element to be searched :");
+                 scanf("%d",&x);
+                 while(new_node!=NULL)
+                 {
+                    if(new_node->data==x)
+                    {  printf("\nNumber %d found at position %d.",x,count+1);
+                       flag=0;
+                       }
+                    else
+                      flag=1;
+                    count++;
+                    new_node=new_node->next;
+                    }
+                 if(flag==1)
+                    printf("\nElement not found.");
+                }
+      break;
+
+      case 5:
+      break;
+
+      default :
+      printf("\nInvalid choice.");
+       }
+     }
+  while(ch!=5);
+  return 0;
+} 
